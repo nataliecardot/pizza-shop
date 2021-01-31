@@ -15,7 +15,12 @@
       echo 'An email is required <br>';
     } else {
       // htmlspecialchars is a defense against XSS attacks - takes data that's input and transforms (escapes) special HTML characters (such as angle brackets and quotes) into HTML entities, which are like safe, string-version codes for special characters
-      echo htmlspecialchars($_POST['email']);
+      // echo htmlspecialchars($_POST['email']);
+
+      $email = $_POST['email'];
+      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo 'Email must be valid';
+      }
     }
 
     // Check title
