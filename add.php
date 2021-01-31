@@ -10,11 +10,30 @@
 
   // POST is more secure because data isn't transmitted in address bar
   if (isset($_POST['submit'])) {
-    // htmlspecialchars is a defense against XSS attacks - takes data that's input and transforms special HTML characters (such as angle brackets and quotes) into HTML entities, which are like safe, string-version codes for special characters
-    echo htmlspecialchars($_POST['email']);
-    echo htmlspecialchars($_POST['title']);
-    echo htmlspecialchars($_POST['ingredients']);
-  }
+    // Check email
+    if (empty($_POST['email'])) {
+      echo 'An email is required <br>';
+    } else {
+      // htmlspecialchars is a defense against XSS attacks - takes data that's input and transforms (escapes) special HTML characters (such as angle brackets and quotes) into HTML entities, which are like safe, string-version codes for special characters
+      echo htmlspecialchars($_POST['email']);
+    }
+
+    // Check title
+    if (empty($_POST['title'])) {
+      echo 'A  title is required <br>';
+    } else {
+      // htmlspecialchars is a defense against XSS attacks - takes data that's input and transforms (escapes) special HTML characters (such as angle brackets and quotes) into HTML entities, which are like safe, string-version codes for special characters
+      echo htmlspecialchars($_POST['title']);
+    }
+
+    // Check ingredients
+    if (empty($_POST['ingredients'])) {
+      echo 'Ingredients are required <br>';
+    } else {
+      // htmlspecialchars is a defense against XSS attacks - takes data that's input and transforms (escapes) special HTML characters (such as angle brackets and quotes) into HTML entities, which are like safe, string-version codes for special characters
+      echo htmlspecialchars($_POST['ingredients']);
+    }
+  } // End of POST check
 ?>
 
 
