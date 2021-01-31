@@ -8,6 +8,9 @@
     .brand {
       background: #cbb09c;
     }
+    .brand:hover {
+      background: #b99579;
+    }
     .brand-text {
       color: #cbb09c !important;
     }
