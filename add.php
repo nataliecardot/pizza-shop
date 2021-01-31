@@ -10,9 +10,10 @@
 
   // POST is more secure because data isn't transmitted in address bar
   if (isset($_POST['submit'])) {
-    echo $_POST['email'];
-    echo $_POST['title'];
-    echo $_POST['ingredients'];
+    // htmlspecialchars is a defense against XSS attacks - takes data that's input and transforms special HTML characters (such as angle brackets and quotes) into HTML entities, which are like safe, string-version codes for special characters
+    echo htmlspecialchars($_POST['email']);
+    echo htmlspecialchars($_POST['title']);
+    echo htmlspecialchars($_POST['ingredients']);
   }
 ?>
 
