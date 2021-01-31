@@ -1,5 +1,13 @@
 <?php
 
+  // Check if data has been submitted to this file
+  // $_GET is a global array in PHP. When we make GET request using the form, all the data that we send is stored in this variable (globals begin with $_)
+  if (isset($_GET['submit'])) {
+    echo $_GET['email'];
+    echo $_GET['title'];
+    echo $_GET['ingredients'];
+  }
+
 ?>
 
 
@@ -9,8 +17,9 @@
   <?php include('templates/header.php'); ?>
 
   <section class="container grey-text">
-    <h2 class="center">Add a Pizza</h2>
-    <form action="" class="white" method="">
+    <h4 class="center">Add a Pizza</h4>
+    <!-- action: the file that will handle the request on the server; file to run and pass this sent data to so it can process it/do something with it -->
+    <form action="add.php" class="white" method="GET">
       <label for="email">Your Email:</label>
       <input type="text" id="email" name="email">
 
