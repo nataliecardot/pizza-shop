@@ -22,6 +22,10 @@
       margin: 20px auto;
       padding: 20px;
     }
+
+    .red-text {
+      margin-bottom: 15px;
+    }
   </style>
 </head>
   <!-- Using Materialize helper classes -->

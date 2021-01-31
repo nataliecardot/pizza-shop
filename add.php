@@ -1,5 +1,7 @@
 <?php
 
+  $errors = array('email' => '', 'title' => '', 'ingredients' => '');
+
   // Check if data has been submitted to this file
   // $_GET is a global array in PHP. When we make GET request using the form, all the data that we send is stored in this variable (globals begin with $_)
   // if (isset($_GET['submit'])) {
@@ -12,7 +14,7 @@
   if (isset($_POST['submit'])) {
     // Check email
     if (empty($_POST['email'])) {
-      echo 'An email is required <br>';
+      $errors['email'] = 'An email is required <br>';
     } else {
       // htmlspecialchars is a defense against XSS attacks - takes data that's input and transforms (escapes) special HTML characters (such as angle brackets and quotes) into HTML entities, which are like safe, string-version codes for special characters
       // echo htmlspecialchars($_POST['email']);
@@ -20,33 +22,33 @@
       $email = $_POST['email'];
       // Using PHP built-in filter for checking valid email format
       if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo 'Email must be valid';
+        $errors['email'] = 'Email must be valid';
       }
     }
 
     // Check title
     if (empty($_POST['title'])) {
-      echo 'A  title is required <br>';
+      $errors['title'] = 'A  title is required <br>';
     } else {
       // echo htmlspecialchars($_POST['title']);
 
       $title = $_POST['title'];
       // \s = any whitepace; + = at least one
       if (!preg_match('/^[a-zA-Z\s]+$/', $title)) {
-        echo 'Title must contain spaces and letters only';
+        $errors['title'] = 'Title must contain spaces and letters only';
       }
     }
 
     // Check ingredients
     if (empty($_POST['ingredients'])) {
-      echo 'Ingredients are required <br>';
+      $errors['ingredients'] = 'Ingredients are required <br>';
     } else {
       // echo htmlspecialchars($_POST['ingredients']);
 
       $ingredients = $_POST['ingredients'];
       // \s = any whitepace; + = at least one
       if (!preg_match('/^([a-zA-Z\s]+)(,\s*[a-zA-Z\s])*$/', $ingredients)) {
-        echo 'Ingredients must be a comma-separated list';
+        $errors['ingredients'] = 'Ingredients must be a comma-separated list';
       }
     }
   } // End of POST check
@@ -65,11 +67,17 @@
       <label for="email">Your Email:</label>
       <input type="text" id="email" name="email">
 
+      <div class="red-text"><?php echo $errors['email'] ?></div>
+
       <label for="title">Your pizza's name:</label>
       <input type="text" id="title" name="title">
 
+      <div class="red-text"><?php echo $errors['title'] ?></div>
+
       <label for="ingredients">Ingredients (comma separated):</label>
       <input type="text" id="ingredients" name="ingredients">
+
+      <div class="red-text"><?php echo $errors['ingredients'] ?></div>
 
       <div class="center">
         <input type="submit" name="submit" value="submit" class="btn brand z-depth-0">
