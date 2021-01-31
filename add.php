@@ -1,5 +1,7 @@
 <?php
 
+  // Initialize to empty string (variables only set after form submitted; without this would get error because trying to display undefined variables for input values)
+  $title = $email = $ingredients = '';
   $errors = array('email' => '', 'title' => '', 'ingredients' => '');
 
   // Check if data has been submitted to this file
@@ -16,8 +18,6 @@
     if (empty($_POST['email'])) {
       $errors['email'] = 'An email is required <br>';
     } else {
-      // htmlspecialchars is a defense against XSS attacks - takes data that's input and transforms (escapes) special HTML characters (such as angle brackets and quotes) into HTML entities, which are like safe, string-version codes for special characters
-      // echo htmlspecialchars($_POST['email']);
 
       $email = $_POST['email'];
       // Using PHP built-in filter for checking valid email format
@@ -65,17 +65,18 @@
     <!-- action: the file that will handle the request on the server; file to run and pass this sent data to so it can process it/do something with it -->
     <form action="add.php" class="white" method="POST">
       <label for="email">Your Email:</label>
-      <input type="text" id="email" name="email">
+      <!-- htmlspecialchars is a defense against XSS attacks - takes data that's input and transforms (escapes) special HTML characters (such as angle brackets and quotes) into HTML entities, which are like safe, string-version codes for special characters -->
+      <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($email) ?>">
 
       <div class="red-text"><?php echo $errors['email'] ?></div>
 
       <label for="title">Your pizza's name:</label>
-      <input type="text" id="title" name="title">
+      <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($title) ?>">
 
       <div class="red-text"><?php echo $errors['title'] ?></div>
 
       <label for="ingredients">Ingredients (comma separated):</label>
-      <input type="text" id="ingredients" name="ingredients">
+      <input type="text" id="ingredients" name="ingredients" value="<?php echo htmlspecialchars($ingredients) ?>">
 
       <div class="red-text"><?php echo $errors['ingredients'] ?></div>
 
