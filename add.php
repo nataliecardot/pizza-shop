@@ -1,5 +1,7 @@
 <?php
 
+  include('config/db_connect.php');
+
   // Initialize to empty string (variables only set after form submitted; without this would get error because trying to display undefined variables for input values)
   $title = $email = $ingredients = '';
   $errors = array('email' => '', 'title' => '', 'ingredients' => '');
