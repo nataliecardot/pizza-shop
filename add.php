@@ -51,6 +51,14 @@
         $errors['ingredients'] = 'Ingredients must be a comma-separated list';
       }
     }
+
+    if (array_filter($errors)) {
+      // echo 'Errors in form';
+    } else {
+      // echo 'Form is valid';
+      header('Location: index.php');
+    }
+
   } // End of POST check
 ?>
 
