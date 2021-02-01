@@ -43,8 +43,13 @@ mysqli_close($conn);
           <div class="card z-depth-0">
             <div class="card-content center">
               <!-- htmpspecialchars: Ensure no malicious code/prevent XSS attacks by escaping special HTML characters -->
-              <h6><?php echo htmlspecialchars($pizza['title']); ?></h6>
-              <div><?php echo htmlspecialchars($pizza['ingredients']); ?></div>
+              <h5><?php echo htmlspecialchars($pizza['title']); ?></h5>
+              <!-- PHP explode function breaks string into array based on separator  -->
+              <ul>
+                <?php foreach(explode(',', $pizza['ingredients']) as $ing) { ?>
+                  <li><?php echo htmlspecialchars($ing) ?></li>
+                <?php } ?>
+              </ul>
             </div>
             <div class="card-action right-align">
               <a href="#" class="brand-text">More info</a>
