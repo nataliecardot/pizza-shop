@@ -36,7 +36,7 @@ mysqli_close($conn);
 
   <div class="container">
     <div class="row">
-      <?php foreach($pizzas as $pizza) { ?>
+      <?php foreach($pizzas as $pizza): ?>
 
         <!-- 12 cols total in Materialize grid - s6 means take half width on small screens -->
         <div class="col s6 md3 ">
@@ -57,7 +57,13 @@ mysqli_close($conn);
           </div>
         </div>
 
-      <?php } ?>
+      <?php endforeach; ?>
+
+      <?php if(count($pizzas) >= 3): ?>
+        <p>There are 3 or more pizzas</p>
+      <?php else: ?>
+        <p>There are less than three pizzas</p>
+      <?php endif; ?>
     </div>
   </div>
 
