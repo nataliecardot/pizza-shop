@@ -9,6 +9,23 @@ if (!$conn) {
   echo 'Connection error: ' . mysqli_connect_error();
 }
 
+// Write query for all pizzas
+$sql = 'SELECT title, ingredients, id FROM pizzas';
+
+// Make query & get result
+$result = mysqli_query($conn, $sql);
+
+// Fetch resulting rows as an associative array
+$pizzas = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+// Free results from memory (best practice)
+mysqli_free_result($result);
+
+// Close connection to database
+mysqli_close($conn);
+
+print_r($pizzas)
+
 ?>
 
 
