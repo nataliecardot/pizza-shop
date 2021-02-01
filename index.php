@@ -24,8 +24,6 @@ mysqli_free_result($result);
 // Close connection to database
 mysqli_close($conn);
 
-print_r($pizzas)
-
 ?>
 
 
@@ -33,6 +31,30 @@ print_r($pizzas)
 <html>
 
   <?php include('templates/header.php'); ?>
+
+  <h4 class="center grey-text">Pizzas</h4>
+
+  <div class="container">
+    <div class="row">
+      <?php foreach($pizzas as $pizza) { ?>
+
+        <!-- 12 cols total in Materialize grid - s6 means take half width on small screens -->
+        <div class="col s6 md3 ">
+          <div class="card z-depth-0">
+            <div class="card-content center">
+              <!-- htmpspecialchars: Ensure no malicious code/prevent XSS attacks by escaping special HTML characters -->
+              <h6><?php echo htmlspecialchars($pizza['title']); ?></h6>
+              <div><?php echo htmlspecialchars($pizza['ingredients']); ?></div>
+            </div>
+            <div class="card-action right-align">
+              <a href="#" class="brand-text">More info</a>
+            </div>
+          </div>
+        </div>
+
+      <?php } ?>
+    </div>
+  </div>
 
   <?php include('templates/footer.php'); ?>
 
