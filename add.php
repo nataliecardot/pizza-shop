@@ -52,6 +52,7 @@
       }
     }
 
+    // array_filter performs callback function on each item in array. If no callback function provided (as is the case here), still cycles through array, and if all positions are empty or evaluate to false (an empty string does in a loose comparison), this statement evaluates to false
     if (array_filter($errors)) {
       // echo 'Errors in form';
     } else {
