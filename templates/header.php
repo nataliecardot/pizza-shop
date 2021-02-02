@@ -23,6 +23,13 @@
       padding: 20px;
     }
 
+    .pizza {
+      margin: 40px auto -25px;
+      display: block;
+      position: relative;
+      top: -25px;
+    }
+
     .red-text {
       margin-bottom: 15px;
     }

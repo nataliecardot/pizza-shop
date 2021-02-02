@@ -34,7 +34,8 @@ mysqli_close($conn);
         <!-- 12 cols total in Materialize grid - s6 means take half width on small screens -->
         <div class="col s6 m4 ">
           <!-- Using premade card size class for uniform heights -->
-          <div class="card z-depth-0 small">
+          <div class="card z-depth-0 medium">
+            <img src="img/pizza.svg" class="pizza" alt="Pizza">
             <div class="card-content center">
               <!-- htmpspecialchars: Ensure no malicious code/prevent XSS attacks by escaping special HTML characters -->
               <span class="card-title"><?php echo htmlspecialchars($pizza['title']); ?></span>
