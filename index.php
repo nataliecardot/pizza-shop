@@ -32,16 +32,17 @@ mysqli_close($conn);
       <?php foreach($pizzas as $pizza): ?>
 
         <!-- 12 cols total in Materialize grid - s6 means take half width on small screens -->
-        <div class="col s6 md3 ">
-          <div class="card z-depth-0">
+        <div class="col s6 m4 ">
+          <!-- Using premade card size class for uniform heights -->
+          <div class="card z-depth-0 small">
             <div class="card-content center">
               <!-- htmpspecialchars: Ensure no malicious code/prevent XSS attacks by escaping special HTML characters -->
-              <h5><?php echo htmlspecialchars($pizza['title']); ?></h5>
+              <span class="card-title"><?php echo htmlspecialchars($pizza['title']); ?></span>
               <!-- PHP explode function breaks string into array based on separator  -->
               <ul>
-                <?php foreach(explode(',', $pizza['ingredients']) as $ing) { ?>
+                <?php foreach(explode(',', $pizza['ingredients']) as $ing): ?>
                   <li><?php echo htmlspecialchars($ing) ?></li>
-                <?php } ?>
+                <?php endforeach; ?>
               </ul>
             </div>
             <div class="card-action right-align">

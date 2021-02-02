@@ -3,24 +3,14 @@
   include('config/db_connect.php');
 
   // Initialize to empty string (variables only set after form submitted; without this would get error because trying to display undefined variables for input values)
-  $title = $email = $ingredients = '';
+  $email = $title = $ingredients = '';
   $errors = array('email' => '', 'title' => '', 'ingredients' => '');
 
-  // Check if data has been submitted to this file
-  // $_GET is a global array in PHP. When we make GET request using the form, all the data that we send is stored in this variable (globals begin with $_)
-  // if (isset($_GET['submit'])) {
-  //   echo $_GET['email'];
-  //   echo $_GET['title'];
-  //   echo $_GET['ingredients'];
-  // }
-
-  // POST is more secure because data isn't transmitted in address bar
   if (isset($_POST['submit'])) {
     // Check email
     if (empty($_POST['email'])) {
       $errors['email'] = 'An email is required <br>';
     } else {
-
       $email = $_POST['email'];
       // Using PHP built-in filter for checking valid email format
       if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -30,7 +20,7 @@
 
     // Check title
     if (empty($_POST['title'])) {
-      $errors['title'] = 'A  title is required <br>';
+      $errors['title'] = 'A title is required <br>';
     } else {
       // echo htmlspecialchars($_POST['title']);
 
@@ -49,7 +39,7 @@
 
       $ingredients = $_POST['ingredients'];
       // \s = any whitepace; + = at least one
-      if (!preg_match('/^([a-zA-Z\s]+)(,\s*[a-zA-Z\s])*$/', $ingredients)) {
+      if (!preg_match('/^([a-zA-Z\s]+)(,\s*[a-zA-Z\s]*)*$/', $ingredients)) {
         $errors['ingredients'] = 'Ingredients must be a comma-separated list';
       }
     }
@@ -58,8 +48,22 @@
     if (array_filter($errors)) {
       // echo 'Errors in form';
     } else {
-      // echo 'Form is valid';
-      header('Location: index.php');
+      // Escapes any malicious/sensitive SQL characters; protects from SQL injection of harmful code into db
+      $email = mysqli_real_escape_string($conn, $_POST['email']);
+      $title = mysqli_real_escape_string($conn, $_POST['title']);
+      $ingredients = mysqli_real_escape_string($conn, $_POST['ingredients']);
+
+      // Create SQL variable
+      $sql = "INSERT INTO pizzas(title, email, ingredients) VALUES('$title', '$email', '$ingredients')";
+
+      // Save to db and check
+      if (mysqli_query($conn, $sql)) {
+        // Success - redirect to homepage
+        header('Location: index.php');
+      } else {
+        // Error
+        echo 'query error: ' . mysqli_error($conn);
+      }
     }
 
   } // End of POST check
@@ -79,20 +83,20 @@
       <!-- htmlspecialchars is a defense against XSS attacks - takes data that's input and transforms (escapes) special HTML characters (such as angle brackets and quotes) into HTML entities, which are like safe, string-version codes for special characters -->
       <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($email) ?>">
 
-      <div class="red-text"><?php echo $errors['email'] ?></div>
+      <div class="red-text"><?php echo $errors['email']; ?></div>
 
       <label for="title">Your pizza's name:</label>
       <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($title) ?>">
 
-      <div class="red-text"><?php echo $errors['title'] ?></div>
+      <div class="red-text"><?php echo $errors['title']; ?></div>
 
       <label for="ingredients">Ingredients (comma separated):</label>
       <input type="text" id="ingredients" name="ingredients" value="<?php echo htmlspecialchars($ingredients) ?>">
 
-      <div class="red-text"><?php echo $errors['ingredients'] ?></div>
+      <div class="red-text"><?php echo $errors['ingredients']; ?></div>
 
       <div class="center">
-        <input type="submit" name="submit" value="submit" class="btn brand z-depth-0">
+        <input type="submit" name="submit" value="Submit" class="btn brand z-depth-0">
       </div>
     </form>
 
